@@ -6,13 +6,12 @@ import logger from '../logger/logger'
 export default function Home(props) {
   // Logging to pino-logflare.
   // Will get sent to Logflare via HTTP.
-  logger.info("Client side logging. Logged with pino-logflare.")
 
-  // Logging with pino. 
+  // Logging with pino.
   // Will appear only in the console of the client.
-  const onlyPino = require('pino')()
+  const onlyPino = require("pino")();
 
-  onlyPino.info("Client side logging. Logged with pino.")
+  onlyPino.info("Client side logging. Logged with pino.");
 
   return (
     <div className={styles.container}>
@@ -24,12 +23,20 @@ export default function Home(props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-            {props.name}
+          {props.name}
           Welcome to <a href="https://nextjs.org">Next.js!</a>
+          <button
+            onClick={() => {
+              logger.info("Client side logging. Button Clicking.");
+            }}
+          >
+            {" "}
+            Click{" "}
+          </button>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -70,14 +77,14 @@ export default function Home(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
 
 export const getStaticProps = async () => {
