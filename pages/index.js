@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import logger from '../logger/logger'
+import Link from "next/link";
 
 export default function Home(props) {
   // Logging to pino-logflare.
@@ -33,6 +34,7 @@ export default function Home(props) {
             {" "}
             Click{" "}
           </button>
+          <Link href="/home">About Us</Link>
         </h1>
 
         <p className={styles.description}>
