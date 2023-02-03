@@ -1,8 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import logger from '../logger/logger'
 
-export default function Home() {
+export default function Home(props) {
+  // Logging to pino-logflare.
+  // Will get sent to Logflare via HTTP.
+  logger.info("Client side logging. Logged with pino-logflare.")
+
+  // Logging with pino. 
+  // Will appear only in the console of the client.
+  const onlyPino = require('pino')()
+
+  onlyPino.info("Client side logging. Logged with pino.")
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,6 +24,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
+            {props.name}
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
@@ -33,7 +45,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="https://github.com/vercel/next.js/tree/master/examples"
             className={styles.card}
           >
             <h2>Examples &rarr;</h2>
@@ -67,3 +79,16 @@ export default function Home() {
     </div>
   )
 }
+
+export const getStaticProps = async () => {
+ let props = {name: "Hello"}
+logger.info('***********Get static Props')
+  return {
+    props,
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 5 seconds
+    revalidate: 30, // In seconds
+    
+  };
+};
